@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<skin>
+		<skin_author>wiggins-kong</skin_author>
+		<text_color>1710618</text_color>
+		<specify_each_item_color>0</specify_each_item_color>
+		<font name="Segoe UI Variable Text" size="9" style="1"/>
+		<display_text>
+			<up></up>
+			<down></down>
+			<cpu></cpu>
+			<cpu_freq></cpu_freq>
+			<cpu_temperature></cpu_temperature>
+			<gpu></gpu>
+			<gpu_temperature></gpu_temperature>
+			<memory></memory>
+			<wbu_left></wbu_left>
+			<wbu_today></wbu_today>
+		</display_text>
+	</skin>
+	<plugin_map>
+		<wbu_left>wbucreditleft</wbu_left>
+		<wbu_today>wbucredittoday</wbu_today>
+	</plugin_map>
+	<layout text_height="28" no_label="0">
+		<!-- 数值由宿主用 GDI+ 垂直居中绘制，基线比背景里的标签高约 3px，所以 item 的 y = 行坐标 + 3 -->
+		<layout_l width="260" height="396">
+			<up x="140" y="49" width="100" align="1" show="1"/>
+			<down x="140" y="77" width="100" align="1" show="1"/>
+			<cpu x="140" y="105" width="100" align="1" show="1"/>
+			<cpu_temperature x="140" y="133" width="100" align="1" show="1"/>
+			<gpu x="140" y="161" width="100" align="1" show="1"/>
+			<gpu_temperature x="140" y="189" width="100" align="1" show="1"/>
+			<memory x="140" y="217" width="100" align="1" show="1"/>
+			<cpu_freq x="140" y="245" width="100" align="1" show="1"/>
+			<wbu_left x="140" y="325" width="100" align="1" show="1"/>
+			<wbu_today x="140" y="353" width="100" align="1" show="1"/>
+		</layout_l>
+		<layout_s width="260" height="288">
+			<up x="140" y="49" width="100" align="1" show="1"/>
+			<down x="140" y="77" width="100" align="1" show="1"/>
+			<cpu x="140" y="105" width="100" align="1" show="1"/>
+			<cpu_temperature x="140" y="133" width="100" align="1" show="1"/>
+			<gpu x="140" y="161" width="100" align="1" show="1"/>
+			<gpu_temperature x="140" y="189" width="100" align="1" show="1"/>
+			<memory x="140" y="217" width="100" align="1" show="1"/>
+			<cpu_freq x="140" y="245" width="100" align="1" show="1"/>
+		</layout_s>
+	</layout>
+	<preview width="300" height="700">
+		<l x="20" y="8"/>
+		<s x="20" y="412"/>
+	</preview>
+</root>

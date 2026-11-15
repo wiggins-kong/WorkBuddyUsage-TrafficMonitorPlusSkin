@@ -1,0 +1,37 @@
+name: Release
+
+# 推 v* 标签即发版：打包两个皮肤目录，按 changelog.md 对应小节发 Release
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 打包皮肤
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory dist | Out-Null
+          Copy-Item -Recurse skins\WorkBuddy-Light dist\
+          Copy-Item -Recurse skins\WorkBuddy-Dark dist\
+          Compress-Archive -Path dist\WorkBuddy-Light, dist\WorkBuddy-Dark `
+            -DestinationPath "WorkBuddy-Skin-${{ github.ref_name }}.zip"
+
+      - name: 取 changelog.md 里本版本那一节当说明
+        shell: pwsh
+        run: |
+          $text = Get-Content changelog.md -Raw -Encoding utf8
+          $m = [regex]::Match($text, "(?ms)^##\s+$([regex]::Escape('${{ github.ref_name }}'))\b.*?(?=^##\s|\z)")
+          $notes = if ($m.Success) { $m.Value } else { "changelog.md 里没有 ${{ github.ref_name }} 这一节。" }
+          Set-Content notes.md -Value $notes -Encoding utf8
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          body_path: notes.md
+          files: WorkBuddy-Skin-*.zip

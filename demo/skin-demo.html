@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>WorkBuddy — TrafficMonitor 皮肤预览</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* 与 gen/bg.html 相同的主题变量 */
+  html[data-theme="light"] {
+    --page1: #9db8e8; --page2: #e3d2ee;
+  }
+  html[data-theme="dark"] {
+    --page1: #14213f; --page2: #2c1c46;
+  }
+  body {
+    font-family: "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+    background: linear-gradient(135deg, var(--page1) 0%, var(--page2) 100%);
+    color: #fff;
+    padding: 28px 36px 40px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page-title { font-size: 15px; font-weight: 600; opacity: .95; text-shadow: 0 1px 6px rgba(0,0,0,.25); }
+  .page-sub { font-size: 11px; opacity: .75; margin: 4px 0 18px; text-shadow: 0 1px 6px rgba(0,0,0,.25); }
+  h2 { font-size: 12px; font-weight: 600; opacity: .9; margin: 22px 0 4px; text-shadow: 0 1px 6px rgba(0,0,0,.25); }
+  .hint { font-size: 11px; opacity: .7; margin-bottom: 10px; text-shadow: 0 1px 6px rgba(0,0,0,.25); }
+  .pair { display: flex; gap: 32px; overflow-x: auto; padding-bottom: 4px; }
+  .cap { font-size: 11px; opacity: .8; margin: 0 0 6px 2px; text-shadow: 0 1px 6px rgba(0,0,0,.25); }
+  .frame { overflow: hidden; flex: none; }
+  .stage { transform: scale(2); transform-origin: top left; width: 260px; }
+  body.no-values .val { visibility: hidden; }
+
+  /* ---- 皮肤窗口本体（贴图用绝对坐标） ---- */
+  .win.light {
+    --card: rgba(255, 255, 255, .76);
+    --card-inner: rgba(255, 255, 255, .34);
+    --stroke: rgba(0, 0, 0, .06);
+    --text: rgba(0, 0, 0, .89);
+    --text2: rgba(0, 0, 0, .55);
+    --accent: #0067C0;
+    --accent-fg: #ffffff;
+  }
+  .win.dark {
+    --card: rgba(28, 28, 30, .76);
+    --card-inner: rgba(255, 255, 255, .05);
+    --stroke: rgba(255, 255, 255, .08);
+    --text: rgba(255, 255, 255, .92);
+    --text2: rgba(255, 255, 255, .55);
+    --accent: #4CC2FF;
+    --accent-fg: #06222f;
+  }
+  .win {
+    position: relative;
+    width: 260px;
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .28), 0 2px 8px rgba(0, 0, 0, .18);
+    overflow: hidden;
+    color: var(--text);
+  }
+  .logo {
+    position: absolute; left: 12px; top: 7px; width: 22px; height: 22px; border-radius: 6px;
+    background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 58%, #7a4dff));
+    display: flex; align-items: center; justify-content: center; color: var(--accent-fg);
+  }
+  .title { position: absolute; left: 42px; top: 10px; font-size: 13px; font-weight: 600; letter-spacing: .1px; }
+  .live {
+    position: absolute; right: 12px; top: 8px; height: 20px;
+    display: flex; align-items: center; gap: 5px;
+    padding: 0 9px; border-radius: 10px;
+    background: var(--card-inner); border: 1px solid var(--stroke);
+    font-size: 11px; color: var(--text2);
+  }
+  .live i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .card {
+    position: absolute; border-radius: 8px;
+    background: var(--card-inner); border: 1px solid var(--stroke);
+  }
+  .row { position: absolute; left: 20px; height: 28px; display: flex; align-items: center; gap: 8px; }
+  .row svg { width: 16px; height: 16px; flex: none; color: var(--text2); }
+  .row .label { font-size: 12px; color: var(--text2); white-space: nowrap; }
+  .val {
+    position: absolute; left: 140px; width: 100px; height: 28px; line-height: 28px;
+    text-align: right; font-size: 12px; font-weight: 600; white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .sect { position: absolute; left: 20px; height: 20px; display: flex; align-items: center; gap: 6px; }
+  .sect svg { width: 14px; height: 14px; color: var(--accent); }
+  .sect .t { font-size: 12px; font-weight: 600; letter-spacing: .2px; }
+  .glabel { position: absolute; left: 20px; font-size: 12px; color: var(--text2); line-height: 28px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="ic-up" viewBox="0 0 16 16"><path d="M8 13.2V3.2M4.2 6.6 8 2.8l3.8 3.8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-down" viewBox="0 0 16 16"><path d="M8 2.8v10M4.2 9.4 8 13.2l3.8-3.8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-cpu" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="4.2" y="4.2" width="7.6" height="7.6" rx="1.2"/><rect x="6.8" y="6.8" width="2.4" height="2.4" rx=".5"/><path d="M8 1.6v2.6M8 11.8v2.6M1.6 8h2.6M11.8 8h2.6"/></g></symbol>
+    <symbol id="ic-gpu" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="1.8" y="4.2" width="12.4" height="7.6" rx="1.2"/><circle cx="5.8" cy="8" r="1.9"/><path d="M9.6 8h2.6"/></g></symbol>
+    <symbol id="ic-temp" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 8.9V3.7a1.4 1.4 0 1 1 2.8 0v5.2a2.6 2.6 0 1 1-2.8 0Z"/><path d="M8 6.4v3.6"/></g></symbol>
+    <symbol id="ic-freq" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2.4 11.7a5.6 5.6 0 1 1 11.2 0"/><path d="M8 11.7 10.6 6.6"/></g></symbol>
+    <symbol id="ic-mem" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="12" height="6" rx="1"/><path d="M4.6 11v1.7M8 11v1.7M11.4 11v1.7M2 8h12"/></g></symbol>
+    <symbol id="ic-spark" viewBox="0 0 16 16"><path d="M8 1.8 9.3 6l4.2 1.3-4.2 1.3L8 12.8 6.7 8.6 2.5 7.3 6.7 6 8 1.8Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-pulse" viewBox="0 0 16 16"><path d="M1.8 8.4h2.9L6.2 4l2.2 8 1.8-4.3 1.2 1.7h2.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="page-title">WorkBuddy — TrafficMonitor 皮肤预览</div>
+<div class="page-sub">深色 / 浅色两套皮肤 · 勾选「显示更多信息」只多 WorkBuddy 额度卡</div>
+
+<h2>详细模式 · 260 × 396</h2>
+<div class="hint">layout_l：8 项硬件指标 + 剩余积分 / 今日已用</div>
+<div class="pair">
+  <div><div class="cap">WorkBuddy-Light</div><div class="frame" style="width:520px;height:792px"><div class="stage" id="l-light"></div></div></div>
+  <div><div class="cap">WorkBuddy-Dark</div><div class="frame" style="width:520px;height:792px"><div class="stage" id="l-dark"></div></div></div>
+</div>
+
+<h2>普通模式 · 260 × 288</h2>
+<div class="hint">layout_s：同样 8 项硬件指标，不显示额度卡</div>
+<div class="pair">
+  <div><div class="cap">WorkBuddy-Light</div><div class="frame" style="width:520px;height:576px"><div class="stage" id="s-light"></div></div></div>
+  <div><div class="cap">WorkBuddy-Dark</div><div class="frame" style="width:520px;height:576px"><div class="stage" id="s-dark"></div></div></div>
+</div>
+
+<script>
+const q = new URLSearchParams(location.search);
+document.documentElement.dataset.theme = q.get('theme') === 'dark' ? 'dark' : 'light';
+if (q.get('values') === '0') document.body.classList.add('no-values');
+
+const ROWS = [
+  { y: 46,  ic: 'up',   label: '上传',       value: '1.24 MB/s' },
+  { y: 74,  ic: 'down', label: '下载',       value: '86.7 MB/s' },
+  { y: 102, ic: 'cpu',  label: 'CPU 使用率', value: '23%' },
+  { y: 130, ic: 'temp', label: 'CPU 温度',   value: '58°C' },
+  { y: 158, ic: 'gpu',  label: 'GPU 使用率', value: '34%' },
+  { y: 186, ic: 'temp', label: 'GPU 温度',   value: '62°C' },
+  { y: 214, ic: 'mem',  label: '内存占用',   value: '39%' },
+  { y: 242, ic: 'freq', label: 'CPU 频率',   value: '4.71 GHz' },
+];
+const QUOTA = [
+  { y: 322, label: '剩余积分', value: '8497' },
+  { y: 350, label: '今日已用', value: '29' },
+];
+
+const icon = (id, size) => `<svg width="${size}" height="${size}"><use href="#ic-${id}"/></svg>`;
+
+function winHTML(theme, mode) {
+  const h = mode === 'l' ? 396 : 288;
+  let html = '';
+  html += `<div class="logo">${icon('pulse', 14)}</div>`;
+  html += `<div class="title">性能监控</div>`;
+  html += `<div class="live"><i></i>实时</div>`;
+  html += `<div class="card" style="left:8px;top:36px;width:244px;height:244px"></div>`;
+  for (const r of ROWS) {
+    html += `<div class="row" style="top:${r.y}px">${icon(r.ic, 16)}<span class="label">${r.label}</span></div>`;
+    html += `<div class="val" style="top:${r.y}px">${r.value}</div>`;
+  }
+  if (mode === 'l') {
+    html += `<div class="card" style="left:8px;top:288px;width:244px;height:100px"></div>`;
+    html += `<div class="sect" style="top:298px;height:20px">${icon('spark', 14)}<span class="t">WorkBuddy 额度</span></div>`;
+    for (const g of QUOTA) {
+      html += `<div class="glabel" style="top:${g.y}px">${g.label}</div>`;
+      html += `<div class="val" style="top:${g.y}px">${g.value}</div>`;
+    }
+  }
+  return `<div class="win ${theme}" style="height:${h}px">${html}</div>`;
+}
+
+for (const mode of ['l', 's']) {
+  for (const theme of ['light', 'dark']) {
+    document.getElementById(`${mode}-${theme}`).innerHTML = winHTML(theme, mode);
+  }
+}
+</script>
+</body>
+</html>
