@@ -44,6 +44,10 @@ foreach ($theme in @('light', 'dark')) {
             "--window-size=$($d.w),$($d.h)" --default-background-color=00000000 `
             "--screenshot=$out" $url | Out-Null
         if (-not (Test-Path $out)) { throw "Edge 未生成 $out" }
+        $img = [System.Drawing.Image]::FromFile($out)
+        $ok = $img.Width -eq ($d.w * 2) -and $img.Height -eq ($d.h * 2)
+        $img.Dispose()
+        if (-not $ok) { throw "$out 尺寸不对，应为 $($d.w * 2)x$($d.h * 2)" }
     }
     New-Mask (Join-Path $dir 'background_mask_l.bmp') ($DIM.l.w * 2) ($DIM.l.h * 2) 16
     New-Mask (Join-Path $dir 'background_mask.bmp')   ($DIM.s.w * 2) ($DIM.s.h * 2) 16
